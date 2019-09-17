@@ -39,6 +39,7 @@ for length in lengths:
 plt.plot(lengths,get_test_results, label = "get() results")
 plt.plot(lengths,update_test_results, label = "update() results")
 plt.xlabel("Number of Elements")
+plt.ylim(.0010,.003)
 plt.ylabel("Timeit Values")
 plt.legend(loc='upper left')
 plt.show()
