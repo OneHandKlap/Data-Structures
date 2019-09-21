@@ -1,0 +1,74 @@
+class Stack():
+
+    def __init__(self):
+        self.data_list=[]
+    def get_data(self):
+        return self.data_list
+    def push(self, data):
+        self.data_list.insert(0,data)
+    def pop(self):
+        return self.data_list.pop(0)
+    def __str__(self):
+        return str(self.get_data())
+
+    def peek(self):
+        return self.data_list[0]
+
+    def isEmpty(self):
+        if len(self.data_list)==0:
+            return True
+        else:
+            return False
+
+def infixToPostfix(somestring):
+    opstack= Stack()
+    newString=''
+    operators=['*','/','+','-']
+    for char in somestring:
+        try:
+            char_int=int(char)
+            newString+=char
+        except:
+            TypeError
+            if char =='(':
+                opstack.push(char)
+            elif char == ')':
+                left_paren=False
+                temp=opstack.pop()
+                while temp!='(':
+                    newString+=temp
+                    temp=opstack.pop()
+            elif char in operators:
+                if (not opstack.isEmpty()):
+                    if opstack.peek() in operators:
+                        if operators.index(opstack.peek())<operators.index(char):
+                            temp = opstack.pop()
+                            newString+=temp
+                opstack.push(char)
+    return newString
+
+
+
+def evaluate_postfix(somestring):
+    operators = ['*','-','+','/']
+    accumulator=Stack()
+    def discover_operator(operator_char,operand1,operand2):
+        if operator_char=='*':
+            return operand1*operand2
+        elif operator_char=='/':
+            return operand1/operand2
+        elif operator_char=='+':
+            return operand1+operand2
+        else:
+            return operand1-operand2
+    for char in somestring:
+        try:
+            char_int = int(char)
+            accumulator.push(char_int)
+        except:
+            TypeError
+            temp1=accumulator.pop()
+            temp2=accumulator.pop()
+            value = discover_operator(char,temp1,temp2)
+            accumulator.push(value)
+    return accumulator
