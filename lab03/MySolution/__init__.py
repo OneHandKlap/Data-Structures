@@ -19,33 +19,49 @@ class Stack():
             return True
         else:
             return False
-
+def check_valid(somestring):
+    contains_operand=False
+    contains_operator=False
+    operators=['*','/','+','-']
+    operands=['1','2','3','4','5','6','7','8','9','0']
+    for char in somestring:
+        if char in operands:
+            contains_operand=True
+        if char in operators:
+            contains_operator=True
+    if contains_operand and contains_operator:
+        return True
+    else:
+        return False
 def infixToPostfix(somestring):
     opstack= Stack()
     newString=''
     operators=['*','/','+','-']
-    for char in somestring:
-        try:
-            char_int=int(char)
-            newString+=char
-        except:
-            TypeError
-            if char =='(':
-                opstack.push(char)
-            elif char == ')':
-                left_paren=False
-                temp=opstack.pop()
-                while temp!='(':
-                    newString+=temp
+    if check_valid(somestring)==True:
+        for char in somestring:
+            try:
+                char_int=int(char)
+                newString+=char
+            except:
+                TypeError
+                if char =='(':
+                    opstack.push(char)
+                elif char == ')':
+                    left_paren=False
                     temp=opstack.pop()
-            elif char in operators:
-                if (not opstack.isEmpty()):
-                    if opstack.peek() in operators:
-                        if operators.index(opstack.peek())<operators.index(char):
-                            temp = opstack.pop()
-                            newString+=temp
-                opstack.push(char)
-    return newString
+                    while temp!='(':
+                        newString+=temp
+                        temp=opstack.pop()
+                elif char in operators:
+                    if (not opstack.isEmpty()):
+                        if opstack.peek() in operators:
+                            if operators.index(opstack.peek())<operators.index(char):
+                                temp = opstack.pop()
+                                newString+=temp
+                    opstack.push(char)
+        return newString
+    else:
+        return ('Invalid string')
 
 
 
@@ -67,8 +83,15 @@ def evaluate_postfix(somestring):
             accumulator.push(char_int)
         except:
             TypeError
-            temp1=accumulator.pop()
-            temp2=accumulator.pop()
-            value = discover_operator(char,temp1,temp2)
-            accumulator.push(value)
+            try:
+                temp1=accumulator.pop()
+                temp2=accumulator.pop()
+                value = discover_operator(char,temp1,temp2)
+                accumulator.push(value)
+            except:
+                IndexError
+                return ('Invalid string')
     return accumulator
+
+somestring=('+*/')
+print(infixToPostfix(somestring))
