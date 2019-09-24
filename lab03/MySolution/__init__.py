@@ -62,7 +62,7 @@ def infixToPostfix(somestring):
 
 
 def evaluate_postfix(somestring):
-    operators = ['*','-','+','/']
+    operators = ['*','-','+','/','!']
     accumulator=Stack()
     def discover_operator(operator_char,operand1,operand2):
         if operator_char=='*':
@@ -71,8 +71,9 @@ def evaluate_postfix(somestring):
             return operand1/operand2
         elif operator_char=='+':
             return operand1+operand2
-        else:
+        elif:
             return operand1-operand2
+        elif:
     for char in somestring:
         try:
             char_int = int(char)
@@ -88,5 +89,13 @@ def evaluate_postfix(somestring):
                 IndexError
                 return ('Invalid string')
     return accumulator
+
+def factorial(number):
+    if number==0:
+        return 1
+    while number>0:
+        return number*factorial(number-1)
+
+print(factorial(8))
 
 print(infixToPostfix('(9*5)*(4+1)'))
