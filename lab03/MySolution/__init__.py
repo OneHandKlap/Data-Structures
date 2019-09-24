@@ -22,26 +22,31 @@ class Stack():
 def check_valid(somestring):
     contains_operand=0
     contains_operator=False
-    operators=['*','/','+','-']
+    operators=['*','/','+','-','!']
     operands=['1','2','3','4','5','6','7','8','9','0']
+    contains_factorial=False
     for char in somestring:
+        if char =='!':
+            contains_factorial=True
         if char in operands:
             contains_operand+=1
         if char in operators:
             contains_operator=True
-    if contains_operand>=2 and contains_operator:
+    if contains_operand>=2 and contains_operator or (contains_operand>=1 and contains_factorial):
         return True
     else:
         return False
 def infixToPostfix(somestring):
     opstack= Stack()
     newString=[]
-    operators=['*','/','+','-','(',')']
+    operators=['*','/','+','-','(',')','!']
     if check_valid(somestring)==True:
         for char in somestring:
             if char in "0123456789":
                 newString.append(char)
             elif char =='(':
+                opstack.push(char)
+            elif char =='!':
                 opstack.push(char)
             elif char == ')':
                 temp=opstack.pop()
@@ -62,7 +67,7 @@ def infixToPostfix(somestring):
 
 
 def evaluate_postfix(somestring):
-    operators = ['*','-','+','/','!']
+    operators = ['!','*','-','+','/',]
     accumulator=Stack()
     def discover_operator(operator_char,operand1,operand2=0):
         if operator_char=='*':
@@ -82,10 +87,14 @@ def evaluate_postfix(somestring):
         except:
             TypeError
             try:
-                temp1=accumulator.pop()
-                temp2=accumulator.pop()
-                value = discover_operator(char,temp1,temp2)
-                accumulator.push(value)
+                if char =='!':
+                    temp1=accumulator.pop()
+                    accumulator.push(factorial(temp1))
+                else:
+                    temp1=accumulator.pop()
+                    temp2=accumulator.pop()
+                    value = discover_operator(char,temp1,temp2)
+                    accumulator.push(value)
             except:
                 IndexError
                 return ('Invalid string')
@@ -96,3 +105,6 @@ def factorial(number):
         return 1
     while number>0:
         return number*factorial(number-1)
+
+print(infixToPostfix('1+4*9!'))
+print(evaluate_postfix(infixToPostfix('(1+4)*9!')))
