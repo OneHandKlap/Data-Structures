@@ -20,44 +20,39 @@ class Stack():
         else:
             return False
 def check_valid(somestring):
-    contains_operand=False
+    contains_operand=0
     contains_operator=False
     operators=['*','/','+','-']
     operands=['1','2','3','4','5','6','7','8','9','0']
     for char in somestring:
         if char in operands:
-            contains_operand=True
+            contains_operand+=1
         if char in operators:
             contains_operator=True
-    if contains_operand and contains_operator:
+    if contains_operand>=2 and contains_operator:
         return True
     else:
         return False
 def infixToPostfix(somestring):
     opstack= Stack()
     newString=[]
-    operators=['*','/','+','-']
+    operators=['*','/','+','-','(',')']
     if check_valid(somestring)==True:
         for char in somestring:
-            try:
-                char_int=int(char)
+            if char in "0123456789":
                 newString.append(char)
-            except:
-                TypeError
-                if char =='(':
-                    opstack.push(char)
-                elif char == ')':
+            elif char =='(':
+                opstack.push(char)
+            elif char == ')':
+                temp=opstack.pop()
+                while temp!='(':
+                    newString.append(temp)
                     temp=opstack.pop()
-                    while temp!='(':
-                        newString.append(temp)
-                        temp=opstack.pop()
-                else:
-                    while (not opstack.isEmpty()):
-                        if opstack.peek() in operators:
-                            if operators.index(opstack.peek())<=operators.index(char):
-                                temp = opstack.pop()
-                                newString.append(temp)
-                    opstack.push(char)
+            else:
+                while (not opstack.isEmpty()) and (operators.index(opstack.peek())<=operators.index(char)):
+                    temp = opstack.pop()
+                    newString.append(temp)
+                opstack.push(char)
         while not opstack.isEmpty():
             newString.append(opstack.pop())
         return "".join(newString)
@@ -94,5 +89,9 @@ def evaluate_postfix(somestring):
                 return ('Invalid string')
     return accumulator
 
+<<<<<<< HEAD
 
 print(infixToPostfix('1+4*9'))
+=======
+print(infixToPostfix('(9*5)*(4+1)'))
+>>>>>>> f75790ac101212827511aba5a515d5ac9331c057
