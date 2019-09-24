@@ -64,16 +64,17 @@ def infixToPostfix(somestring):
 def evaluate_postfix(somestring):
     operators = ['*','-','+','/','!']
     accumulator=Stack()
-    def discover_operator(operator_char,operand1,operand2):
+    def discover_operator(operator_char,operand1,operand2=0):
         if operator_char=='*':
             return operand1*operand2
         elif operator_char=='/':
             return operand1/operand2
         elif operator_char=='+':
             return operand1+operand2
-        elif:
+        elif operator_char=='!':
+            return factorial(operand1)
+        else:
             return operand1-operand2
-        elif:
     for char in somestring:
         try:
             char_int = int(char)
