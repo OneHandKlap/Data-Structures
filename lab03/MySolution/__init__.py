@@ -35,31 +35,32 @@ def check_valid(somestring):
         return False
 def infixToPostfix(somestring):
     opstack= Stack()
-    newString=''
+    newString=[]
     operators=['*','/','+','-']
     if check_valid(somestring)==True:
         for char in somestring:
             try:
                 char_int=int(char)
-                newString+=char
+                newString.append(char)
             except:
                 TypeError
                 if char =='(':
                     opstack.push(char)
                 elif char == ')':
-                    left_paren=False
                     temp=opstack.pop()
                     while temp!='(':
-                        newString+=temp
+                        newString.append(temp)
                         temp=opstack.pop()
-                elif char in operators:
-                    if (not opstack.isEmpty()):
+                else:
+                    while (not opstack.isEmpty()):
                         if opstack.peek() in operators:
-                            if operators.index(opstack.peek())<operators.index(char):
+                            if operators.index(opstack.peek())<=operators.index(char):
                                 temp = opstack.pop()
-                                newString+=temp
+                                newString.append(temp)
                     opstack.push(char)
-        return newString
+        while not opstack.isEmpty():
+            newString.append(opstack.pop())
+        return " ".join(newString)
     else:
         return ('Invalid string')
 
@@ -93,5 +94,5 @@ def evaluate_postfix(somestring):
                 return ('Invalid string')
     return accumulator
 
-somestring=('+*/')
+somestring=('(1+3)*4')
 print(infixToPostfix(somestring))
