@@ -60,7 +60,7 @@ def infixToPostfix(somestring):
                     opstack.push(char)
         while not opstack.isEmpty():
             newString.append(opstack.pop())
-        return " ".join(newString)
+        return "".join(newString)
     else:
         return ('Invalid string')
 
@@ -94,5 +94,5 @@ def evaluate_postfix(somestring):
                 return ('Invalid string')
     return accumulator
 
-somestring=('(1+3)*4')
-print(infixToPostfix(somestring))
+
+print(infixToPostfix('1+4*9'))
