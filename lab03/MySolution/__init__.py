@@ -90,13 +90,9 @@ def evaluate_postfix(somestring):
                 IndexError
                 return ('Invalid string')
     return accumulator
-
+    
 def factorial(number):
     if number==0:
         return 1
     while number>0:
         return number*factorial(number-1)
-
-print(factorial(8))
-
-print(infixToPostfix('(9*5)*(4+1)'))
