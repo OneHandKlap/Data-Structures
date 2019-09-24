@@ -1,3 +1,4 @@
+#Basic Stack implementation
 class Stack():
 
     def __init__(self):
@@ -19,6 +20,8 @@ class Stack():
             return True
         else:
             return False
+
+#Deprecated check_valid function that verifies the correct number of operators and operands in a given string.
 # def check_valid(somestring):
 #     contains_operand=0
 #     contains_operator=False
@@ -37,47 +40,35 @@ class Stack():
 #     else:
 #         return False
 
+#My conversion function, that takes in a string of single spaced characters and converts it to postfix notation
 def infixToPostfix(somestring):
     opstack= Stack()
     newString=[]
-    operators=['*','/','+','-','!','(',')']
+    operators=['*','/','+','-','!','(']
+    operator_precedence={'*':3,'/':3,'+':2,'-':2,'(':1,'!':1}
     # if check_valid(somestring)==True:
     for char in somestring:
-        print(char)
         if char in "0123456789":
             newString.append(char)
-            print(newString)
         elif char =='(':
             opstack.push(char)
-            print(opstack)
         elif char =='!':
-            opstack.push(char)
-            print(opstack)
+            newString.append(char)
         elif char == ')':
             temp=opstack.pop()
-            print(temp)
             while temp!='(':
                 newString.append(temp)
-                print(newString)
                 temp=opstack.pop()
-            try:
-                newString.append(opstack.pop())
-            except:
-                IndexError
         else:
-            while (not opstack.isEmpty()) and (operators.index(opstack.peek())<=operators.index(char)):
-                print(char)
+            while (not opstack.isEmpty()) and (operator_precedence.get(opstack.peek())>=operator_precedence.get(char)):
                 temp = opstack.pop()
                 newString.append(temp)
             opstack.push(char)
     while not opstack.isEmpty():
         newString.append(opstack.pop())
     return "".join(newString)
-    # else:
-    #     return ('Invalid string')
 
-
-
+#My postfix evaluator function that takes in somestring in postfix notation and performs the requisite mathematical operations on it to provide a sum
 def evaluate_postfix(somestring):
     operators = ['*','-','+','/','!']
     accumulator=Stack()
@@ -110,15 +101,11 @@ def evaluate_postfix(somestring):
                     accumulator.push(value)
             except:
                 IndexError
-                # return ('Invalid string')
     return accumulator.pop()
-    # else:
-        # return ('Invalid string')
-    
+
+#custom recursive factorial helper function... style points?
 def factorial(number):
     if number==0:
         return 1
     while number>0:
         return number*factorial(number-1)
-
-fixed it
