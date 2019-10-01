@@ -19,7 +19,7 @@ for length in lengths:
     keys = [x for x in range(int(length))]
     values = [(x*5) for x in keys]
     dictionary = dict(zip(keys,values))
-    to_del = random.randrange(len(l))
+    to_del = random.randrange(length)
 
     list_del_test_results.append((timeit.timeit("list_del_test(l,to_del)", setup = "from __main__ import list_del_test,to_del, l", number = 1)))
     dict_del_test_results.append((timeit.timeit("dict_del_test(dictionary,to_del)", setup = "from __main__ import dict_del_test,to_del, dictionary", number = 1)))

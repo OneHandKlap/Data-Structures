@@ -53,13 +53,13 @@ def powerH(x,n):
 
 print("powerH result:" +str(powerH(2,6)))
 
-def C(n,k,acc=0):
+def C(n,k):
     if k==0 or k==n:
         return 1
     else:
         return C(n-1,k)+C(n-1,k-1)
 
-print("C result:"+str(C(5,4)))
+print("C result:"+str(C(6,3)))
 
 main()
 
