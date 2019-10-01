@@ -2,30 +2,32 @@ import turtle
 import random
 
 def tree(branchLen,t,angle=0):
-    if branchLen<=10:
+    if branchLen<=25:
         t.pencolor('green')
     else:
-        t.pencolor('brown')
+        t.pencolor('#8a5103')
     if branchLen<=5:
         return
     else:
-        rand_angle=random.randrange(5,20)
-        rand_branch_reduction = random.randrange(5,int(25*(branchLen/75))+5)
+        rand_angle=random.randrange(5,25) 
+        rand_branch_reduction = random.randrange(5,10)
         t.pensize((branchLen/75)*10)
         t.forward(branchLen)
         t.right(rand_angle)
-        tree(branchLen-rand_branch_reduction,t,rand_angle)
+        tree(branchLen-rand_branch_reduction,t,rand_angle) 
         t.left(rand_angle*2)
         tree(branchLen-rand_branch_reduction,t,rand_angle)
         t.right(rand_angle)
         t.backward(branchLen)
+        t.color("#8a5103")
 
 def main():
     t=turtle.Turtle()
     myWin = turtle.Screen()
+    turtle.tracer(0)
     t.left(90)
     t.up()
-    t.backward(100)
+    t.backward(200)
     t.down()
     t.color("green")
     tree(75,t)
@@ -58,4 +60,6 @@ def C(n,k,acc=0):
         return C(n-1,k)+C(n-1,k-1)
 
 print("C result:"+str(C(5,4)))
+
+main()
 
