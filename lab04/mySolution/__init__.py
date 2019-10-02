@@ -9,9 +9,9 @@ def tree(branchLen,t,angle=0):
     if branchLen<=5:
         return
     else:
-        rand_angle=random.randrange(5,25) 
-        rand_branch_reduction = random.randrange(5,10)
-        t.pensize((branchLen/75)*10)
+        rand_angle=random.randrange(5,25) #between 5 and 25 degrees of angle seemed most natural looking to me  
+        rand_branch_reduction = random.randrange(5,10) #I found that a smaller factor of reduction increased the over all size of the tree, making it look more natural
+        t.pensize((branchLen/75)*10) # the pensize is a function of the branch length, as the branch decreases in length, so does the pen size
         t.forward(branchLen)
         t.right(rand_angle)
         tree(branchLen-rand_branch_reduction,t,rand_angle) 
@@ -19,18 +19,19 @@ def tree(branchLen,t,angle=0):
         tree(branchLen-rand_branch_reduction,t,rand_angle)
         t.right(rand_angle)
         t.backward(branchLen)
-        t.color("#8a5103")
+        t.color("#8a5103") #nicer shade of brown#
 
 def main():
     t=turtle.Turtle()
     myWin = turtle.Screen()
-    turtle.tracer(0)
+    turtle.tracer(0) #turns off the tracer so that the image is generated automatically
     t.left(90)
     t.up()
-    t.backward(200)
+    t.backward(200) #modified so my larger tree would fit on the page
     t.down()
     t.color("green")
     tree(75,t)
+    turtle.getscreen().getcanvas().postscript(file="tree.ps")
     myWin.exitonclick()
 
 def power(x,n,acc):
@@ -39,8 +40,6 @@ def power(x,n,acc):
     else:
         acc=acc*x
         return (power(x,n-1,acc))
-
-print("power result:" +str(power(2,4,1)))
 
 def powerH(x,n):
     if n ==1:
@@ -51,15 +50,10 @@ def powerH(x,n):
         else:
             return (powerH(x,n//2)*powerH(x,n//2))*x
 
-print("powerH result:" +str(powerH(2,6)))
-
 def C(n,k):
     if k==0 or k==n:
         return 1
     else:
         return C(n-1,k)+C(n-1,k-1)
-
-print("C result:"+str(C(6,3)))
-
 main()
 

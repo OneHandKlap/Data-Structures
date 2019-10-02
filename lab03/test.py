@@ -7,7 +7,6 @@ from MySolution import factorial
 
 class evaluate_tester(unittest.TestCase):
 
-
     def test_evaluate(self):
         result = evaluate_postfix(infixToPostfix('(1+4)*(5+6)-(6/3)*3!'))
         self.assertEqual(int(result),43)
