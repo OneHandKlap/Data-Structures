@@ -55,5 +55,15 @@ def C(n,k):
         return 1
     else:
         return C(n-1,k)+C(n-1,k-1)
+
+
+def calculate_square_area(dimension,acc):
+    if dimension ==0:
+        return acc*acc
+    else:
+        acc=acc+1
+        return calculate_square_area(dimension-1,acc)
+
+print(calculate_square_area(4,0))
 main()
 
