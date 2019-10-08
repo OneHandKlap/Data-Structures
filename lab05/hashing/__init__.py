@@ -1,13 +1,8 @@
 class hashtable():
-    def __init__(self,size=0):
-        if size:
-            self.size=size
-            self.slots=[None]*size
-            self.data=[None]*size
-        else:
-            self.size=10
-            self.slots=[None]*size
-            self.data=[None]*size
+    def __init__(self,size=11):
+        self.size=size
+        self.slots=[None]*size
+        self.data=[None]*size
 
     def put(self,key,data):
         load_factor = self.get_load()
@@ -71,9 +66,10 @@ class hashtable():
     def resize_map(self):
         temp_slots=self.slots
         temp_data=self.data
-        self.slots=[None]*2*self.size
-        self.data=[None]*2*self.size
         self.size=2*self.size
+        self.slots=[None]*self.size
+        self.data=[None]*self.size
+        
         for x in range(len(temp_slots)):
             if temp_slots[x]!=None:
                 self.put(temp_slots[x],temp_data[x])
