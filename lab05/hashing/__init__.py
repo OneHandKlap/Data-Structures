@@ -78,13 +78,3 @@ class hashtable():
             if temp_slots[x]!=None:
                 self.put(temp_slots[x],temp_data[x])
         
-
-t=hashtable(5)
-t.put(56,1)
-t.put(89,2)
-t.put(22,3)
-t.put(31,4)
-t.put(69,5)
-print(t.get_data())
-t.resize_map()
-
