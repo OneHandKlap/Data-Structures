@@ -51,6 +51,20 @@ class hash_test(unittest.TestCase):
         res=t.get_data()
         self.assertEqual(res,[3,None,None,None,None])
 
+    def test_get(self):
+        t=hashtable(5)
+        keys=[9,15,28,93]
+        data=[11,12,13,14]
+        t=hashtable(5) 
+        for i in range(len(keys)):
+            t.put(keys[i],data[i])
+        res=t.get_data()
+        self.assertEqual(res,[12,14,None,13,11])
+        t.put(55,15)
+        res=t.get_data()
+        self.assertEqual(res,[None, None, None, 14, None, 12, 15, None, 13, 11])
+        res=t.get(55)
+        self.assertEqual(res,15)
 
 if __name__=='__main__':
     unittest.main()
