@@ -1,5 +1,5 @@
 #practice building a linked list from scratch
-
+from pythonds.basic import Stack
 class Node():
 
     def __init__(self, initial_data):
@@ -72,10 +72,14 @@ class Unordered_list():
         else:
             previous.set_next(current.get_next())
 
+def convertBinary(num, stack=Stack()):
+    if num ==0:
+        res=""
+        while not (stack.isEmpty()):
+            res+=str(stack.pop())
+        return res
+    else:
+        stack.push(num%2)
+        convertBinary(num//2,stack)
 
-link_list = Unordered_list()
-link_list.add(32)
-link_list.add(723)
-link_list.add(344)
-link_list.remove(32)
-print(link_list)
+print(convertBinary(1132))
