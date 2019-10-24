@@ -58,10 +58,11 @@ def josephus(num_prisoners,num_candy,start_pos):
         
         return end_pos
     else:
-        return end_pos%num_prisoners
+        return end_pos-num_prisoners-1
 
 
-#print(josephus(88325121,435452998,24617705))
+print(josephus(352926151 ,380324688 ,94730870))
+
 def insertion_sort(arr):
     for i in range(len(arr)):
         local_min=min(arr[i:])
@@ -76,5 +77,5 @@ def recursive_insertion_sort(arr,acc=[]):
         arr.remove(min(arr))
         return(recursive_insertion_sort(arr,acc))
 
-l=[6,5,3,2,1]
-print(insertion_sort(l))
+# l=[6,5,3,2,1]
+# print(insertion_sort(l))
