@@ -69,19 +69,17 @@ lengths=[x for x in range(0,50000,1000)]
 quick=[]
 quick_mo3=[]
 
-print(medianOf(23,22,67))
-
 for length in lengths:
     arr=[random.randrange(100) for x in range(length)]
+    arr2=arr
     quickSort_temp=[]
     quickSort_mo3_temp=[]
     for i in range(3):
         quickSort_temp.append((timeit.timeit("quickSort(arr)", setup = "from __main__ import quickSort,arr", number = 1)))
-        quickSort_mo3_temp.append((timeit.timeit("quickSort(arr,True)", setup = "from __main__ import quickSort,arr", number = 1)))
+        quickSort_mo3_temp.append((timeit.timeit("quickSort(arr2,True)", setup = "from __main__ import quickSort,arr2", number = 1)))
     quick.append(statistics.mean(quickSort_temp))
     quick_mo3.append(statistics.mean(quickSort_mo3_temp))
-    # quick.append((timeit.timeit("quickSort(arr)", setup = "from __main__ import quickSort,arr", number = 1)))
-    # quick_mo3.append((timeit.timeit("quickSort(arr,True)", setup = "from __main__ import quickSort,arr", number = 1)))
+
 plt.plot(lengths,quick,'ro', label = "quickSort canon results")
 plt.plot(lengths,quick_mo3, 'bo', label = "quickSort mo3 results")
 plt.xlabel("Number of Elements")
