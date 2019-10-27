@@ -1,47 +1,16 @@
-import statistics
+import unittest
+import random
+from sorting import quickSort,quickSortHelper,partition
 
-def m03_quicksort(alist):
-    
-    quickSortHelper(alist,0,len(alist)-1)
+class quickSortTester(unittest.TestCase):
+    def test_1(self):
+        arr=[random.randrange(100) for x in range(10)]
+        result = arr.sort()
+        self.assertEqual(result,quickSort(arr))
+    def test_2(self):
+        arr=[random.randrange(1000) for x in range(100)]
+        result=quickSort(arr)
+        self.assertEqual(result,quickSort(arr,True))
 
-def quickSortHelper(alist,first,last):
-   if first<last:
-
-       splitpoint = partition(alist,first,last)
-
-       quickSortHelper(alist,first,splitpoint-1)
-       quickSortHelper(alist,splitpoint+1,last)
-
-
-def partition(alist,first,last):
-   pivotvalue = statistics.median([alist[0],alist[len(alist)-1],alist[int(len(alist)/2)]])
-
-   leftmark = first+1
-   rightmark = last
-
-   done = False
-   while not done:
-
-       while leftmark <= rightmark and alist[leftmark] <= pivotvalue:
-           leftmark = leftmark + 1
-
-       while alist[rightmark] >= pivotvalue and rightmark >= leftmark:
-           rightmark = rightmark -1
-
-       if rightmark < leftmark:
-           done = True
-       else:
-           temp = alist[leftmark]
-           alist[leftmark] = alist[rightmark]
-           alist[rightmark] = temp
-
-   temp = alist[first]
-   alist[first] = alist[rightmark]
-   alist[rightmark] = temp
-
-
-   return rightmark
-
-alist = [54,26,93,17,77,31,44,55,20]
-m03_quicksort(alist)
-print(alist)
+if __name__=='__main__':
+    unittest.main()
