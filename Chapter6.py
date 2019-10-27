@@ -48,7 +48,7 @@ def recursive_sel_sort(arr,flag=True,count=0):
         return (recursive_sel_sort(arr,flag,count))
 
 l=[3,9,3,4,6,5]
-#print(recursive_sel_sort(l))
+print(recursive_sel_sort(l))
 
 
 def josephus(num_prisoners,num_candy,start_pos):
