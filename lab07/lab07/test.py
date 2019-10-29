@@ -1,56 +1,31 @@
-def eval_tree(tree,env):
-    try:
-        if (tree[1]==[] or None) and (tree[2]==[] or None):
-            return (tree[0])
-        else:
-            return eval_array([eval_tree(tree[0],env),eval_tree(tree[1],env),eval_tree(tree[2],env)],env)
-    except(IndexError):
-        return tree[0]
-def eval_array(arr,env):
-    operand_stack=[]
-    operator_stack=[]
-    operators=['*','/','+','-','!']
-    def discover_operator(operator_char,operand1,operand2=0):
-        try:
-            if operator_char=='*':
-                return operand1*operand2
-            elif operator_char=='/':
-                return operand1/operand2
-            elif operator_char=='+':
-                return operand1+operand2
-            elif operator_char=='!':
-                return factorial(operand1)
-            else:
-                return operand2-operand1
-        except (TypeError,ZeroDivisionError):
-            return None
-    for x in range(len(arr)-1,-1,-1):
-        if arr[x] in env:
-            operand_stack.insert(0,env.get(arr[x]))
-        elif arr[x] in operators:
-            if not operator_stack:
-                operator_stack.insert(0,arr[x])
-            else:
-                operator=operator_stack.pop(0)
-                operand1=operand_stack.pop(0)
-                operand2=operand_stack.pop(0)
-                operand_stack.insert(0,discover_operator(operator,operand1,operand2))
-                operator_stack.insert(0,arr[x])
-        else:
-            operand_stack.insert(0,arr[x])
-    if operand_stack and operator_stack:
-        operator=operator_stack.pop(0)
-        operand1=operand_stack.pop(0)
-        operand2=operand_stack.pop(0)
-        operand_stack.insert(0,discover_operator(operator,operand1,operand2))
+import unittest
+from eval import eval_tree, eval_array_2
 
-    return operand_stack.pop(0)
-            
-
-l=["*", ["/", ['+',['a'],['b']], ['c']], ["*", ['d'], ['e']]]
-env=[['a',8],['b',9],['c',2],['d',12],['e',4]]
-#print(dict(env))
-print(eval_tree(l,dict(env)))
-
-#print(eval_array(eval_tree(l),dict(env)))
-        
+class treeEvaluator(unittest.TestCase):
+    def test1(self):
+        tree=['/',['*',['+',[9],[2]],['-',[6],[4]]],['*',['+',[10],[12]],[4]]]
+        env=[['a',8],['b',2]]
+        res=eval_tree(tree,env)
+        self.assertEqual(res,0.25)
+    def test2(self):
+        tree = ['*',['/',[4],[2]],['+',[8],[4]]]
+        env =[['a',4],['b',2],['c',8],['d',4]]
+        res=eval_tree(tree,env)
+        self.assertEqual(res,24)
+    def test3(self):
+        tree = ['*',['*',['/',['b'],['a']],['+',[8],[4]]],['*',['/',['c'],[2]],['+',[8],[4]]]]
+        env=[['a',4],['b',2]]
+        res=eval_tree(tree,env)
+        self.assertEqual(res,None)
+    def test4(self):
+        tree=["+", ["a", [], []], ["*", ["b", [], []], ["/", ['c'], [1]]]]
+        env=[['a',15],['b',5],['c',2]]
+        res=eval_tree(tree,env)
+        self.assertEqual(res,25)
+    def test5(self):
+        tree=["+", ["a", [], []], ["*", ["b", [], []], ["+", [610], ["+", ["a", [], []], ["*", ["b", [], []], ["c", [], []]]]]]]
+        env=[["a", 10], ["b", 20], ["c", 30]]
+        res=eval_tree(tree,env)
+        self.assertEqual(res,24410)
+if __name__=='__main__':
+    unittest.main()
