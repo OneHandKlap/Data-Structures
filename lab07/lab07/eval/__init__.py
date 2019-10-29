@@ -21,11 +21,3 @@ def eval_array_2(arr,env):
         return eval(str(operand1)+str(operator)+str(operand2))
     except:
         return None
-
-l=["/", ["*", ["a", [], []], ["b", [], []]], ["*", ["c", [], []], ["d", [], []]]]
-env=[["a", 10], ["b", 9], ["c", 5], ["d", 10], ["e", 8]]
-#print(dict(env))
-print(eval_tree(l,dict(env)))
-
-#print(eval_array(eval_tree(l),dict(env)))
-
