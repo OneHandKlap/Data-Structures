@@ -13,10 +13,14 @@ class Tree():
         self.left=Tree(data,self)
 
     def getNext(self):
-        if self.parent!=None and self.parent.getRight() != self.root:
-                return self.parent.getRight()
+        if self.parent==None:
+            return self.left
         else:
-            return self.getLeft()
+            try:
+                self.parent.getRight()
+            except(AttributeError):
+                return self.parent.getLeft().getLeft()
+        
     def getLeft(self):
         return self.left
     def getParent(self):
@@ -114,7 +118,8 @@ d=Tree(3)
 t.addLeft(1,t)
 t.addRight(2,t)
 t.getLeft().addLeft(11,t.getLeft())
-t.getRight().addRight(22,t.getRight())
-t.getRight().addLeft(21,t.getRight)
 t.getLeft().addRight(12,t.getLeft())
-print(t.getNext().getNext().parent.getRight().root)
+t.getRight().addLeft(21,t.getRight)
+t.getRight().addRight(22,t.getRight())
+print(t.getNext().parent.getRight().root)
+
