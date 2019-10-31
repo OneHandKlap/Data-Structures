@@ -1,16 +1,23 @@
 #Trees practice
 class Tree():
-    def __init__(self,data):
+    def __init__(self,data,parent=None):
         self.root=data
+        self.parent=parent
         self.left=None
         self.right=None
 
     def addRight(self,data):
-        self.right=Tree(data)
+        self.right=Tree(data,self)
 
     def addLeft(self,data):
-        self.left=Tree(data)
+        self.left=Tree(data,self)
 
+    def getNext(self):
+        if self.parent!=None:
+            if self.parent.getRight()!=self.root:
+                return self.parent.getRight()
+        else:
+            return self.getLeft()
     def getLeft(self):
         return self.left
     
@@ -69,6 +76,33 @@ class Tree():
                 self.getRight().treeToDict(dictionary,count)
                 return dictionary
 
+    def getTreeQueue(self,queue=[]):
+        if self.getLeft()==None and self.getRight()==None:
+            queue.append(self.root)
+            return queue
+        else:
+            if not self.getLeft():
+                queue.append(self.root)
+                return self.getRight().getTreeQueue(queue)
+            elif not self.getRight():
+                queue.append(self.root)
+                return self.getRight().getTreeQueue(queue)
+            else:
+                queue.append(self.root)
+                self.getLeft().getTreeQueue(queue)
+                self.getRight().getTreeQueue(queue)
+                return queue
+    
+    # def printTree2(self):
+    #     size = self.getSize()
+    #     print("\t"*size+str(self.root))
+    #     treeDict=self.treeToDict()
+    #     treeKeys=treeDict.keys()
+    #     treeQueue=self.getTreeQueue
+    #     for i in range(size+1):
+
+
+
 
 
 
@@ -80,4 +114,4 @@ t.getLeft().addLeft(11)
 t.getRight().addRight(21)
 t.getRight().addLeft(22)
 t.getLeft().addRight(12)
-t.printTree()
+print(t.getNext().getNext().root)
