@@ -17,20 +17,33 @@ class Tree():
     def getRight(self):
         return self.right
 
-    def __str__(self,acc=[],count=0,thisline=0):
-        if self.getLeft()==None and self.getRight==None:
-            acc.append(str(self.root)+"\t"+str(thisline))
-            return acc
+    def getSize(self,count=0):
+        if self.getLeft()==None and self.getRight()==None:
+            return count
         else:
             count+=1
-            thisline=count
-            if acc[count]:
-                acc[count].append("\n"+self.getLeft.__str__(acc,count))
-                acc[count].append(self.getRight.__str__(acc,count)+"\t"+str(thisline))
+            if not self.getLeft():
+                return self.getRight().getSize(count)
+            elif not self.getRight():
+                return self.getRight().getSize(count)
             else:
-                acc.append([])
-                acc[count].append(self.getLeft.__str__(acc,count))
-                acc[count].append(self.getRight.__str__(acc,count))
+                return max(self.getRight().getSize(count),self.getRight().getSize(count))
+                
+
+    # def __str__(self,acc=[],count=0,thisline=0):
+    #     if self.getLeft()==None and self.getRight==None:
+    #         acc.append(str(self.root)+"\t"+str(thisline))
+    #         return acc
+    #     else:
+    #         count+=1
+    #         thisline=count
+    #         if acc[count]:
+    #             acc[count].append("\n"+self.getLeft.__str__(acc,count))
+    #             acc[count].append(self.getRight.__str__(acc,count)+"\t"+str(thisline))
+    #         else:
+    #             acc.append([])
+    #             acc[count].append(self.getLeft.__str__(acc,count))
+    #             acc[count].append(self.getRight.__str__(acc,count))
 
 t=Tree(4)
 t.addLeft('branch1')
@@ -38,4 +51,4 @@ t.addRight('branch2')
 t.getLeft().addLeft('branch3')
 t.getRight().addRight('branch4')
 
-t.__str__()
+print (t.getSize())
