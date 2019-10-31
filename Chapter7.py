@@ -28,27 +28,56 @@ class Tree():
                 return self.getRight().getSize(count)
             else:
                 return max(self.getRight().getSize(count),self.getRight().getSize(count))
-                
 
-    # def __str__(self,acc=[],count=0,thisline=0):
-    #     if self.getLeft()==None and self.getRight==None:
-    #         acc.append(str(self.root)+"\t"+str(thisline))
-    #         return acc
-    #     else:
-    #         count+=1
-    #         thisline=count
-    #         if acc[count]:
-    #             acc[count].append("\n"+self.getLeft.__str__(acc,count))
-    #             acc[count].append(self.getRight.__str__(acc,count)+"\t"+str(thisline))
-    #         else:
-    #             acc.append([])
-    #             acc[count].append(self.getLeft.__str__(acc,count))
-    #             acc[count].append(self.getRight.__str__(acc,count))
+    def printTree(self):
+        treeDict=self.treeToDict()
+        treeKeys=treeDict.keys()
+        for i in range(max(treeKeys)+1):
+            if i in treeKeys:
+                print(str(i)+"\t"+str(treeDict[i])+"\n")
+            else:
+                print(str(i)+"\n")
 
-t=Tree(4)
-t.addLeft('branch1')
-t.addRight('branch2')
-t.getLeft().addLeft('branch3')
-t.getRight().addRight('branch4')
+    def treeToDict(self,dictionary={},count=0):
+        if count==0:
+            dictionary[count]=[self.root]
+        if self.getLeft()==None and self.getRight()==None:
+            return dictionary
+        else:
+            count+=1
+            if not self.getLeft():
+                if count in dictionary:
+                    dictionary[count].append(self.getRight().root)
+                else:
+                    dictionary[count]=[self.getRight().root]
+                return self.getRight().treeToDict(dictionary,count)
+            elif not self.getRight():
+                if count in dictionary:
+                    dictionary[count].append(self.getLeft().root)
+                else:
+                    dictionary[count]=[self.getLeft().root]
+                return self.getLeft().treeToDict(dictionary,count)
+            else:
+                if count in dictionary:
+                    
+                    dictionary[count].append(self.getLeft().root)
+                    dictionary[count].append(self.getRight().root)
+                else:
+                    dictionary[count]=[self.getLeft().root]
+                    dictionary[count].append(self.getRight().root)
+                self.getLeft().treeToDict(dictionary,count)
+                self.getRight().treeToDict(dictionary,count)
+                return dictionary
 
-print (t.getSize())
+
+
+
+
+t=Tree(0)
+t.addLeft(1)
+t.addRight(2)
+t.getLeft().addLeft(11)
+t.getRight().addRight(21)
+t.getRight().addLeft(22)
+t.getLeft().addRight(12)
+t.printTree()
