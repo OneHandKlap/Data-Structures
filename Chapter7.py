@@ -6,21 +6,21 @@ class Tree():
         self.left=None
         self.right=None
 
-    def addRight(self,data):
+    def addRight(self,data,parent=None):
         self.right=Tree(data,self)
 
-    def addLeft(self,data):
+    def addLeft(self,data,parent=None):
         self.left=Tree(data,self)
 
     def getNext(self):
-        if self.parent!=None:
-            if self.parent.getRight()!=self.root:
+        if self.parent!=None and self.parent.getRight() != self.root:
                 return self.parent.getRight()
         else:
             return self.getLeft()
     def getLeft(self):
         return self.left
-    
+    def getParent(self):
+        return self.parent
     def getRight(self):
         return self.right
 
@@ -108,10 +108,13 @@ class Tree():
 
 
 t=Tree(0)
-t.addLeft(1)
-t.addRight(2)
-t.getLeft().addLeft(11)
-t.getRight().addRight(21)
-t.getRight().addLeft(22)
-t.getLeft().addRight(12)
-print(t.getNext().getNext().root)
+b=Tree(1)
+c=Tree(2)
+d=Tree(3)
+t.addLeft(1,t)
+t.addRight(2,t)
+t.getLeft().addLeft(11,t.getLeft())
+t.getRight().addRight(22,t.getRight())
+t.getRight().addLeft(21,t.getRight)
+t.getLeft().addRight(12,t.getLeft())
+print(t.getNext().getNext().parent.getRight().root)
