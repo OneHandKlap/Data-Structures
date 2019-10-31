@@ -17,14 +17,20 @@ class Tree():
     def getRight(self):
         return self.right
 
-    def __str__(self):
-        if self.getLeft()==None and self.getRight()==None:
-            print (str(root))
+    def __str__(self,acc=[],count=0,thisline=0):
+        if self.getLeft()==None and self.getRight==None:
+            acc.append(str(self.root)+"\t"+str(thisline))
+            return acc
         else:
-            res=[]
-            res.append((self.getLeft().__str__()))
-            res.append((self.getRight().__str__()))
-            print(str(res))
+            count+=1
+            thisline=count
+            if acc[count]:
+                acc[count].append("\n"+self.getLeft.__str__(acc,count))
+                acc[count].append(self.getRight.__str__(acc,count)+"\t"+str(thisline))
+            else:
+                acc.append([])
+                acc[count].append(self.getLeft.__str__(acc,count))
+                acc[count].append(self.getRight.__str__(acc,count))
 
 t=Tree(4)
 t.addLeft('branch1')
