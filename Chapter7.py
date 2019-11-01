@@ -120,7 +120,7 @@ class Tree():
         while queue:
             thisItem=queue.pop(0)
             firstLine="\t"*size
-            secondLine=
+            secondLine=""
             if thisItem.left!=None:
                 firstLine+="/"
                 queue.append(thisItem.getLeft())
@@ -131,11 +131,12 @@ class Tree():
                 queue.append(thisItem.getRight())
             else:
                 firstLine+=" "
-            print(firstLine)
+            
 
             secondLine+="\n"+"\t"*size+str(thisItem.getLeft().root)+" "+str(thisItem.getRight().root)
             if thisItem.parent != queue[0].parent or not queue:
                 print(firstLine)
+                print(secondLine)
 
 
 
