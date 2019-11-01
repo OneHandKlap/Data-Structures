@@ -8,7 +8,10 @@ def eval_tree(tree,env):
     except(IndexError):
         return tree[0]
 def eval_array_2(arr,env):
-    operator = arr[0]
+    if arr[0] in env:
+        operator = env.get(arr[0])
+    else:
+        operator = arr[0]
     if arr[1] in env:
         operand1=env.get(arr[1])
     else:
