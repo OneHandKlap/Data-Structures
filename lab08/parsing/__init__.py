@@ -30,14 +30,6 @@ def parseHelper(expr, operators, operands):
             return parseHelper(expr[1:], [expr[0]]+operators, operands)
     else:
         return handleOp(expr, operators, operands)
-
+        
 def handleOp(expr, operators, operands):
     return parseHelper(expr, operators[1:], [[operators[0], operands[1], operands[0]]]+operands[2:])
-
-#x=[['3','/','6'],'-', '9']
-x=['3','/','(','(','6','-','9',')','+','1',')']
-#x=[['4'], '+', ['3'], '+', '6']
-#x="( 4 + 3 * 7 - 5 / ( 3 + 4 ) + 6 )"
-print("--", parse(x))
-#print("--", 	['-', ['/', ['3', [], []], ['!', ['6', [], []], []]], ['9', [], []]])
-
