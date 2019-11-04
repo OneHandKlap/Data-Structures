@@ -120,7 +120,7 @@ class Tree():
         while queue:
             thisItem=queue.pop(0)
             firstLine="\t"*size
-            secondLine=
+            secondLine=""
             if thisItem.left!=None:
                 firstLine+="/"
                 queue.append(thisItem.getLeft())
