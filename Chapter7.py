@@ -27,8 +27,6 @@ class Tree():
         return self.parent
     def getRight(self):
         return self.right
-    def getRoot(self):
-        return self.root
 
     def getSize(self,count=0):
         if self.getLeft()==None and self.getRight()==None:
@@ -98,20 +96,8 @@ class Tree():
                 self.getLeft().getTreeQueue(queue)
                 self.getRight().getTreeQueue(queue)
                 return queue
-    def breadthFirstSearch(self,data):
-        queue=[]
-        queue.append(self)
-        while queue:
-            thisItem=queue.pop(0)
-            thisData=thisItem.getRoot()
-            if thisData==data:
-                return True
-            else:
-                if self.left!=None:
-                    queue.append(thisItem.getLeft())
-                if self.right!=None:
-                    queue.append(thisItem.getRight())
     
+<<<<<<< HEAD
     def printTree2(self):
         queue=[]
         queue.append(self)
@@ -137,6 +123,15 @@ class Tree():
             if thisItem.parent != queue[0].parent or not queue:
                 print(firstLine)
 
+=======
+    # def printTree2(self):
+    #     size = self.getSize()
+    #     print("\t"*size+str(self.root))
+    #     treeDict=self.treeToDict()
+    #     treeKeys=treeDict.keys()
+    #     treeQueue=self.getTreeQueue
+    #     for i in range(size+1):
+>>>>>>> 90f108c0b76b5b2b63f817a2d980ac8a47d06d7b
 
 
 
@@ -154,5 +149,5 @@ t.getLeft().addLeft(11,t.getLeft())
 t.getLeft().addRight(12,t.getLeft())
 t.getRight().addLeft(21,t.getRight)
 t.getRight().addRight(22,t.getRight())
-print(t.printTree2())
+print(t.getNext())
 
