@@ -16,6 +16,16 @@ class parseTester(unittest.TestCase):
         item=['3','/',['6', '!'],'-', '9']
         res=parse(item)
         self.assertEqual(res, 	['-', ['/', ['3', [], []], ['!', ['6', [], []], []]], ['9', [], []]])
+
+    def test4(self):
+        item=[['4','+',['6','*','2']],'/','4']
+        res=parse(item)
+        self.assertEqual(res,['/',['+',['4',[],[]],['*',['6',[],[]],['2',[],[]]]],['4',[],[]]])
+
+    def test5(self):
+        item=[['5','+','2'],'*',['2','-','1']]
+        res=parse(item)
+        self.assertEqual(res,['*',['+',['5',[],[]],['2',[],[]]],['-',['2',[],[]],['1',[],[]]]])
     
 if __name__=="__main__":
     unittest.main()
