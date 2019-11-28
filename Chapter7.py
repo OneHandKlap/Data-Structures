@@ -97,7 +97,6 @@ class Tree():
                 self.getRight().getTreeQueue(queue)
                 return queue
     
-<<<<<<< HEAD
     def printTree2(self):
         queue=[]
         queue.append(self)
@@ -123,15 +122,6 @@ class Tree():
             if thisItem.parent != queue[0].parent or not queue:
                 print(firstLine)
 
-=======
-    # def printTree2(self):
-    #     size = self.getSize()
-    #     print("\t"*size+str(self.root))
-    #     treeDict=self.treeToDict()
-    #     treeKeys=treeDict.keys()
-    #     treeQueue=self.getTreeQueue
-    #     for i in range(size+1):
->>>>>>> 90f108c0b76b5b2b63f817a2d980ac8a47d06d7b
 
 
 
